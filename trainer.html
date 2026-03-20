@@ -175,9 +175,9 @@ body { background:var(--black); color:var(--text); font-family:'Josefin Sans',sa
     <div class="login-title">Trainer Dashboard</div>
     <div class="login-sub">Unity JAX &mdash; Admin</div>
     <div class="login-card">
-      <div id="loginErr" class="login-err">Incorrect credentials.</div>
-      <div class="fg" style="margin-bottom:1rem;"><label>Email</label><input type="email" id="tEmail" placeholder="info@unitytrainingjax.com"/></div>
-      <div class="fg" style="margin-bottom:1.2rem;"><label>Password</label><input type="password" id="tPass" placeholder="Your password"/></div>
+      <div id="loginErr" class="login-err" style="display:block;color:#e88;font-size:0.72rem;margin-bottom:1rem;text-align:center;min-height:1.2rem;">Incorrect credentials.</div>
+      <div class="fg" style="margin-bottom:1rem;"><label>Email</label><input type="email" id="tEmail" placeholder="info@unitytrainingjax.com" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="fg" style="margin-bottom:1.2rem;"><label>Password</label><input type="password" id="tPass" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <button class="btn-gold" style="width:100%;" onclick="doLogin()">Sign In &nbsp;&#9672;</button>
     </div>
   </div>
@@ -505,21 +505,22 @@ function saveAll(){
 
 // ── Auth ─────────────────────────────────────────────────
 function doLogin(){
-  var emailInput = document.getElementById('tEmail');
-  var passInput = document.getElementById('tPass');
-  var errEl = document.getElementById('loginErr');
-  if(!emailInput || !passInput){ alert('Login form error. Please refresh.'); return; }
-  var e = emailInput.value.trim().toLowerCase();
-  var p = passInput.value;
-  var correctEmail = TRAINER.email.toLowerCase();
-  var correctPass = TRAINER.pass;
-  if(e === correctEmail && p === correctPass){
-    errEl.style.display='none';
-    try { S('ujax_t_sess', true); } catch(ex) {}
-    bootDash();
+  var e = (document.getElementById('tEmail').value||'').trim().toLowerCase();
+  var p = (document.getElementById('tPass').value||'');
+  var err = document.getElementById('loginErr');
+  err.textContent = 'Checking: ' + e;
+  if(e === 'info@unitytrainingjax.com' && p === 'Unity!123'){
+    err.textContent = '';
+    err.style.color = '#8e8';
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('dashWrap').style.display = 'block';
+    loadAll();
+    renderOverview();
+    renderLibrary();
+    renderClients();
   } else {
-    errEl.style.display='block';
-    errEl.textContent = 'Incorrect credentials. Email: ' + e + ' | Expected: ' + correctEmail;
+    err.style.color = '#e88';
+    err.textContent = 'Wrong credentials. Got: [' + e + '] / [' + p + ']';
   }
 }
 function doLogout(){ S('ujax_t_sess',null); location.reload(); }
