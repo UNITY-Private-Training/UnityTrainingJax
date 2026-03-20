@@ -606,8 +606,21 @@ function bindMessages() {
     const msgs = store.msgs(currentUser.email);
     msgs.push({ from: 'client', text, time: currentUser.name.split(' ')[0] + ' — ' + fmtTime() });
     store.setMsgs(currentUser.email, msgs);
-    msgInput.value = '';
-    showPanel('messages');
+    // Append bubble directly without full re-render
+    const body = document.getElementById('msg-body');
+    if (body) {
+      // Remove empty state if present
+      const empty = body.querySelector('.msg-empty');
+      if (empty) empty.remove();
+      const wrap = document.createElement('div');
+      wrap.className = 'msg-bubble-wrap from-client';
+      wrap.innerHTML = '<div class="msg-bubble">' + esc(text) + '</div>' +
+        '<div class="msg-time">' + esc(currentUser.name.split(' ')[0] + ' — ' + fmtTime()) + '</div>';
+      body.appendChild(wrap);
+      body.scrollTop = body.scrollHeight;
+    }
+    const inp = document.getElementById('msg-input');
+    if (inp) inp.value = '';
   };
   sendBtn.addEventListener('click', doSend);
   msgInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSend(); });
