@@ -665,7 +665,7 @@ function renderLibrary(){
   document.getElementById('exCount').textContent='('+exercises.length+')';
   var grid=document.getElementById('exGrid');
   if(!exercises.length){
-    grid.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">&#9646;</div>Add your first exercise above.</div>';
+    grid.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">▮</div>Add your first exercise above.</div>';
     return;
   }
   if(!filtered.length){
@@ -676,11 +676,11 @@ function renderLibrary(){
     var realIdx=exercises.indexOf(ex);
     var tagClass=MUSCLES[ex.muscle]||'tag-full';
     var diffColor=ex.diff<=2?'#8e8':ex.diff==3?'var(--gold-light)':'#e88';
-    var videoBtn=ex.video?'<a href="'+ex.video+'" target="_blank" class="btn-xs" style="border-color:rgba(100,150,255,0.3);color:#aaf;background:rgba(100,150,255,0.06);text-decoration:none;">&#9654; Video</a>':'';
+    var videoBtn=ex.video?'<a href="'+ex.video+'" target="_blank" class="btn-xs" style="border-color:rgba(100,150,255,0.3);color:#aaf;background:rgba(100,150,255,0.06);text-decoration:none;">► Video</a>':'';
     return '<div class="ex-card">'+
       '<div class="ex-card-header"><span class="ex-name">'+ex.name+'</span></div>'+
       '<div class="ex-tags"><span class="tag '+tagClass+'">'+ex.muscle+'</span><span class="tag" style="color:'+diffColor+';border-color:'+diffColor+'44;background:'+diffColor+'11;">'+DIFFS[ex.diff||3]+'</span></div>'+
-      '<div class="ex-details"><span>&#9646; '+ex.sets+' sets</span><span>&#10006; '+ex.reps+' reps</span><span>&#9201; '+ex.rest+'</span></div>'+
+      '<div class="ex-details"><span>▮ '+ex.sets+' sets</span><span>✖ '+ex.reps+' reps</span><span>⏱ '+ex.rest+'</span></div>'+
       (ex.notes?'<div class="ex-notes">'+ex.notes+'</div>':'')+
       '<div class="ex-actions">'+
         '<button class="btn-xs btn-xs-edit" onclick="editExercise('+realIdx+')">Edit</button>'+
@@ -729,7 +729,7 @@ function renderExPicker(){
   list.innerHTML=filtered.map(function(ex){
     var tagClass=MUSCLES[ex.muscle]||'tag-full';
     return '<div class="ex-pick-row" onclick="addExToDay(''+ex.id+'')">'+
-      '<div><div class="ex-pick-name">'+ex.name+'</div><div class="ex-pick-meta">'+ex.sets+' sets &times; '+ex.reps+' reps &nbsp;|&nbsp; Rest: '+ex.rest+'</div></div>'+
+      '<div><div class="ex-pick-name">'+ex.name+'</div><div class="ex-pick-meta">'+ex.sets+' sets × '+ex.reps+' reps  |  Rest: '+ex.rest+'</div></div>'+
       '<span class="tag '+tagClass+'">'+ex.muscle+'</span>'+
     '</div>';
   }).join('');
@@ -752,20 +752,20 @@ function removeExFromDay(dayIdx,exIdx){
 function renderDayList(){
   var list=document.getElementById('dayList');
   if(!builderDays.length){
-    list.innerHTML='<div class="empty-state"><div class="empty-icon">&#9998;</div>Click "Add Day" to start.</div>';
+    list.innerHTML='<div class="empty-state"><div class="empty-icon">✎</div>Click "Add Day" to start.</div>';
     updateBuilderSummary(); return;
   }
   list.innerHTML=builderDays.map(function(d,i){
     var exRows=d.exercises.length
-      ? d.exercises.map(function(e,ei){return '<div class="day-ex-row"><div><div class="day-ex-name">'+e.name+'</div><div class="day-ex-meta">'+e.sets+' sets &times; '+e.reps+' &nbsp;|&nbsp; Rest: '+e.rest+'</div></div><button class="day-ex-del" onclick="removeExFromDay('+i+','+ei+')">&#10005;</button></div>';}).join('')
-      : '<div style="font-size:0.72rem;color:var(--muted);padding:0.5rem 0;">No exercises yet &mdash; add some below.</div>';
+      ? d.exercises.map(function(e,ei){return '<div class="day-ex-row"><div><div class="day-ex-name">'+e.name+'</div><div class="day-ex-meta">'+e.sets+' sets × '+e.reps+'  |  Rest: '+e.rest+'</div></div><button class="day-ex-del" onclick="removeExFromDay('+i+','+ei+')">✕</button></div>';}).join('')
+      : '<div style="font-size:0.72rem;color:var(--muted);padding:0.5rem 0;">No exercises yet — add some below.</div>';
     return '<div class="day-card">'+
       '<div class="day-header" onclick="toggleDay('+i+')">'+
         '<div><div class="day-title">'+d.name+'</div><div class="day-count">'+d.exercises.length+' exercise'+(d.exercises.length!==1?'s':'')+'</div></div>'+
         '<div style="display:flex;align-items:center;gap:0.5rem;">'+
           '<button class="btn-xs btn-xs-add" onclick="event.stopPropagation();openExPicker('+i+')">+ Add</button>'+
           '<button class="btn-xs btn-xs-del" onclick="event.stopPropagation();removeDay('+i+')">Remove Day</button>'+
-          '<span class="day-toggle" id="dayArrow-'+i+'" style="color:var(--gold-dim);">&#9654;</span>'+
+          '<span class="day-toggle" id="dayArrow-'+i+'" style="color:var(--gold-dim);">►</span>'+
         '</div>'+
       '</div>'+
       '<div class="day-body" id="dayBody-'+i+'">'+exRows+'</div>'+
@@ -777,7 +777,7 @@ function renderDayList(){
 function updateBuilderSummary(){
   var totalEx=builderDays.reduce(function(s,d){return s+d.exercises.length;},0);
   document.getElementById('builderSummary').innerHTML=
-    '<strong style="color:var(--text);">'+builderDays.length+'</strong> days &nbsp;|&nbsp; '+
+    '<strong style="color:var(--text);">'+builderDays.length+'</strong> days  |  '+
     '<strong style="color:var(--text);">'+totalEx+'</strong> total exercises';
 }
 
@@ -834,7 +834,7 @@ function saveProgram(){
 // ── SAVED PROGRAMS ───────────────────────────────────────
 function renderSavedPrograms(){
   var el=document.getElementById('savedProgramsList');
-  if(!programs.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">&#9776;</div>No programs yet.</div>';return;}
+  if(!programs.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">☰</div>No programs yet.</div>';return;}
   el.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;">'+
   programs.map(function(p,i){
     var totalEx=p.days.reduce(function(s,d){return s+d.exercises.length;},0);
@@ -880,7 +880,7 @@ function doAssign(){
 // ── CLIENTS ──────────────────────────────────────────────
 function renderClients(){
   var grid=document.getElementById('clientsGrid');
-  if(!clients.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">&#9654;</div>No clients yet.</div>';return;}
+  if(!clients.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">►</div>No clients yet.</div>';return;}
   grid.innerHTML=clients.map(function(c,i){
     return '<div class="client-card">'+
       '<div class="client-card-header">'+
@@ -888,8 +888,8 @@ function renderClients(){
         '<div class="client-name-block"><div class="client-name">'+c.name+'</div><div class="client-email">'+c.email+'</div></div>'+
       '</div>'+
       '<div class="client-stats">'+
-        '<div class="cs-item"><div class="cs-label">Plan</div><div class="cs-val" style="font-size:0.72rem;">'+(c.plan||'&mdash;')+'</div></div>'+
-        '<div class="cs-item"><div class="cs-label">Start</div><div class="cs-val" style="font-size:0.72rem;">'+(c.start||'&mdash;')+'</div></div>'+
+        '<div class="cs-item"><div class="cs-label">Plan</div><div class="cs-val" style="font-size:0.72rem;">'+(c.plan||'—')+'</div></div>'+
+        '<div class="cs-item"><div class="cs-label">Start</div><div class="cs-val" style="font-size:0.72rem;">'+(c.start||'—')+'</div></div>'+
       '</div>'+
       '<div class="client-prog-badge">Program: <strong>'+(c.programName||'Not assigned')+'</strong></div>'+
     '</div>';
@@ -964,7 +964,7 @@ function sendMsg(){
   var msgs=S('ujax_msgs_'+c.email)||[];
   var now=new Date();
   var time=now.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' at '+now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  msgs.push({from:'trainer',text:text,time:'You &mdash; '+time});
+  msgs.push({from:'trainer',text:text,time:'You — '+time});
   S('ujax_msgs_'+c.email,msgs);
   document.getElementById('msgInput').value='';
   loadChat();
