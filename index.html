@@ -446,7 +446,35 @@
     <li><a href="waiver.html">Waiver</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <div style="display:flex;align-items:center;gap:0.8rem;">
+  <div style="position:relative;" id="loginDropWrap">
+    <button onclick="toggleLoginDrop()" style="border:1px solid rgba(201,149,42,0.3);background:transparent;color:var(--muted);padding:0.6rem 1.4rem;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:0.5rem;" onmouseenter="this.style.color='var(--gold-light)';this.style.borderColor='var(--gold-dim)'" onmouseleave="this.style.color='var(--muted)';this.style.borderColor='rgba(201,149,42,0.3)'">
+      &#9654; Login
+    </button>
+    <div id="loginDrop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--dark);border:1px solid rgba(201,149,42,0.2);min-width:190px;z-index:200;">
+      <a href="dashboard.html" style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.2rem;text-decoration:none;color:var(--muted);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid rgba(201,149,42,0.08);transition:all 0.2s;" onmouseenter="this.style.color='var(--gold-light)';this.style.background='rgba(201,149,42,0.05)'" onmouseleave="this.style.color='var(--muted)';this.style.background='transparent'">
+        <span style="font-size:1rem;">&#9646;</span> Client Portal
+      </a>
+      <a href="trainer.html" style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.2rem;text-decoration:none;color:var(--muted);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;transition:all 0.2s;" onmouseenter="this.style.color='var(--gold-light)';this.style.background='rgba(201,149,42,0.05)'" onmouseleave="this.style.color='var(--muted)';this.style.background='transparent'">
+        <span style="font-size:1rem;">&#9672;</span> Trainer Portal
+      </a>
+    </div>
+  </div>
   <a href="factfinder.html" class="nav-cta">Begin</a>
+</div>
+
+<script>
+function toggleLoginDrop(){
+  var d = document.getElementById('loginDrop');
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+}
+document.addEventListener('click', function(e){
+  var wrap = document.getElementById('loginDropWrap');
+  if(wrap && !wrap.contains(e.target)){
+    document.getElementById('loginDrop').style.display = 'none';
+  }
+});
+</script>
 </nav>
 
 <!-- HERO -->
