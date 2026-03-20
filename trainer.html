@@ -475,7 +475,7 @@ body { background:var(--black); color:var(--text); font-family:'Josefin Sans',sa
 <div class="success-toast" id="toast"></div>
 
 <script>
-var TRAINER = { email:'info@unitytrainingjax.com', pass:'Unity!123' };
+var TRAINER = { email:'info@unitytrainingjax.com', pass:'Unity!123' }; /* v13-fixed */
 
 // ── Storage ──────────────────────────────────────────────
 function S(k,v){ try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null;}else{localStorage.setItem(k,JSON.stringify(v));}}catch(e){return null;} }
@@ -505,23 +505,58 @@ function saveAll(){
 
 // ── Auth ─────────────────────────────────────────────────
 function doLogin(){
-  var e=document.getElementById('tEmail').value.trim().toLowerCase();
-  var p=document.getElementById('tPass').value;
-  if(e===TRAINER.email&&p===TRAINER.pass){
-    S('ujax_t_sess',true);
+  var emailInput = document.getElementById('tEmail');
+  var passInput = document.getElementById('tPass');
+  var errEl = document.getElementById('loginErr');
+  if(!emailInput || !passInput){ alert('Login form error. Please refresh.'); return; }
+  var e = emailInput.value.trim().toLowerCase();
+  var p = passInput.value;
+  var correctEmail = TRAINER.email.toLowerCase();
+  var correctPass = TRAINER.pass;
+  if(e === correctEmail && p === correctPass){
+    errEl.style.display='none';
+    try { S('ujax_t_sess', true); } catch(ex) {}
     bootDash();
-  } else { document.getElementById('loginErr').style.display='block'; }
+  } else {
+    errEl.style.display='block';
+    errEl.textContent = 'Incorrect credentials. Email: ' + e + ' | Expected: ' + correctEmail;
+  }
 }
 function doLogout(){ S('ujax_t_sess',null); location.reload(); }
 window.addEventListener('DOMContentLoaded',function(){
-  if(S('ujax_t_sess')) bootDash();
-  document.getElementById('ac_start').value=new Date().toISOString().split('T')[0];
+  try {
+    var sess = S('ujax_t_sess');
+    if(sess === true) bootDash();
+    document.getElementById('ac_start').value=new Date().toISOString().split('T')[0];
+  } catch(e) { console.error('DOMContentLoaded error:', e); }
 });
 function bootDash(){
-  loadAll();
+  try {
+    loadAll();
+  } catch(e) { console.error('loadAll error:', e); }
   document.getElementById('loginWrap').style.display='none';
   document.getElementById('dashWrap').style.display='block';
-  refreshAll();
+  try {
+    renderOverview();
+  } catch(e) { console.error('renderOverview error:', e); }
+  try {
+    renderLibrary();
+  } catch(e) { console.error('renderLibrary error:', e); }
+  try {
+    renderClients();
+  } catch(e) { console.error('renderClients error:', e); }
+  try {
+    renderSavedPrograms();
+  } catch(e) { console.error('renderSavedPrograms error:', e); }
+  try {
+    renderACProgramSelect();
+  } catch(e) { console.error('renderACProgramSelect error:', e); }
+  try {
+    renderMsgSelect();
+  } catch(e) { console.error('renderMsgSelect error:', e); }
+  try {
+    renderAssignList();
+  } catch(e) { console.error('renderAssignList error:', e); }
 }
 
 // ── Panel nav ─────────────────────────────────────────────
