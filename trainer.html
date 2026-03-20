@@ -490,7 +490,7 @@ var currentAssignProg = -1;
 
 function loadAll(){
   exercises = S('ujax_exercises') || [];
-  programs  = S('ujax_programs')  || [];
+  programs  = S('ujax_programs')  || {};
   clients   = S('ujax_trainer_clients') || [];
 }
 function saveAll(){
@@ -942,6 +942,14 @@ document.querySelectorAll&&document.addEventListener('click',function(e){
   });
 });
 
-function refreshAll(){ renderOverview(); renderLibrary(); }
+function refreshAll(){
+  renderOverview();
+  renderLibrary();
+  renderClients();
+  renderSavedPrograms();
+  renderACProgramSelect();
+  renderMsgSelect();
+  renderAssignList();
+}
 </script>
 </body></html>

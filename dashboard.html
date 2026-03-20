@@ -356,6 +356,12 @@ function doLogin(){
 }
 function doLogout(){S('ujax_c_sess',null);location.reload();}
 window.addEventListener('DOMContentLoaded',function(){
+  // Seed a test account so trainer can verify client portal works
+  var accounts = L('ujax_client_accounts',{});
+  if(!accounts['test@unitytrainingjax.com']){
+    accounts['test@unitytrainingjax.com'] = { pass:'Test1234', name:'Test Client', plan:'Foundation - 3 months' };
+    S('ujax_client_accounts', accounts);
+  }
   var sess=S('ujax_c_sess');
   if(sess){currentUser=sess;bootDash();}
   document.getElementById('wDate').value=new Date().toISOString().split('T')[0];
