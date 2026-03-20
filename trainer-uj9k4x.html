@@ -323,7 +323,7 @@ function renderOverview(){
   el.innerHTML='<table class="ctable"><thead><tr><th>Name</th><th>Plan</th><th>Start</th><th>Program</th></tr></thead><tbody>'+
     cl.map(function(c){
       var prog=getProgram(c.email);
-      return '<tr><td>'+c.name+'</td><td>'+c.plan+'</td><td>'+c.start+'</td><td>'+(prog?'<span class="badge badge-active">&#10003; '+prog.name+'</span>':'<span class="badge badge-none">Not assigned</span>')+'</td></tr>';
+      return '<tr><td>'+c.name+'</td><td>'+c.plan+'</td><td>'+c.start+'</td><td>'+(prog?'<span class="badge badge-active">✓ '+prog.name+'</span>':'<span class="badge badge-none">Not assigned</span>')+'</td></tr>';
     }).join('')+'</tbody></table>';
 }
 
@@ -456,12 +456,12 @@ function renderExRows(day,exercises){
       '<input class="ex-in" placeholder="12" value="'+escHtml(ex.reps)+'" oninput="updateEx('+day+','+ei+','reps',this.value)"/>'+
       '<input class="ex-in" placeholder="60s" value="'+escHtml(ex.rest)+'" oninput="updateEx('+day+','+ei+','rest',this.value)"/>'+
       '<input class="ex-in" placeholder="e.g. Keep core tight" value="'+escHtml(ex.notes)+'" oninput="updateEx('+day+','+ei+','notes',this.value)"/>'+
-      '<button class="rm-ex" onclick="removeEx('+day+','+ei+')">&#10005;</button>'+
+      '<button class="rm-ex" onclick="removeEx('+day+','+ei+')">✕</button>'+
     '</div>';
   }).join('');
 }
 
-function escHtml(str){ return (str||'').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(str){ return (str||'').replace(/"/g,'"').replace(/</g,'<').replace(/>/g,'>'); }
 
 function updateEx(day,ei,field,val){ if(dayData[day]&&dayData[day].exercises[ei]) dayData[day].exercises[ei][field]=val; }
 
@@ -521,7 +521,7 @@ function renderCheckins(){
   el.innerHTML=all.map(function(item){
     var c=item.client; var ci=item.ci;
     return '<div class="ci-card">'+
-      '<div class="ci-card-head"><div class="ci-name">'+c.name+'</div><div class="ci-wk">Week '+ci.week+' &mdash; '+ci.date+'</div></div>'+
+      '<div class="ci-card-head"><div class="ci-name">'+c.name+'</div><div class="ci-wk">Week '+ci.week+' — '+ci.date+'</div></div>'+
       '<div class="ci-stats">'+
         '<div class="ci-stat"><label>Workouts</label><span>'+ci.workouts+'</span></div>'+
         '<div class="ci-stat"><label>Energy</label><span>'+ci.energy+'/10</span></div>'+
