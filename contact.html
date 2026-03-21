@@ -126,76 +126,26 @@ footer{
 .foot-copy{font-size:.6rem;color:var(--muted)}
 
 /* responsive */
+
+@media(max-width:900px){
+  .ct-grid{grid-template-columns:1fr}
+  .ct-card{padding:2rem 1.5rem}
+}
 @media(max-width:768px){
   .nav{padding:0 1.2rem}
-  .nav-center{display:none}
-  .section{padding:4rem 1.2rem}
-  .foot-inner{flex-direction:column;align-items:flex-start}
-  .row2{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .ct-hero{padding:calc(64px + 3.5rem) 1.2rem 2.5rem}
+  .ct-section{padding:2.5rem 1rem 4rem}
+  .ct-grid{grid-template-columns:1fr;gap:2rem}
+  .ct-card{padding:2rem 1.2rem}
+  .ct-submit{min-height:50px;font-size:0.68rem;padding:1rem}
+  .ct-promo a{width:100%;text-align:center;display:block}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.2rem;gap:1.2rem}
 }
-
-
-.ct-hero{
-  padding:calc(66px + 5rem) 2.5rem 3.5rem;
-  text-align:center;
-  background:radial-gradient(ellipse 60% 40% at 50% 0%,
-    rgba(201,149,42,.08) 0%,transparent 70%);
+@media(max-width:380px){
+  .ct-card{padding:1.5rem 1rem}
+  .field input,.field select,.field textarea{font-size:16px}
 }
-.ct-hero .sub{margin:0 auto}
-.ct-section{padding:4rem 2.5rem 6rem}
-.ct-grid{
-  max-width:960px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1.7fr;
-  gap:3.5rem;align-items:start;
-}
-.ct-info h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;font-weight:300;color:var(--gl);
-  margin-bottom:.9rem;
-}
-.ct-info p{font-size:.82rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
-.ct-detail{margin-bottom:1.2rem}
-.ct-detail-lbl{
-  font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);display:block;margin-bottom:.2rem;
-}
-.ct-detail-val{font-size:.82rem;color:var(--muted);line-height:1.7}
-.ct-promo{
-  margin-top:2rem;padding:1.5rem;
-  background:var(--dark);border:1px solid rgba(201,149,42,.1);
-}
-.ct-promo-lbl{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem}
-.ct-promo p{font-size:.78rem;color:var(--muted);line-height:1.8;margin-bottom:.9rem}
-.ct-card{
-  background:var(--dark);border:1px solid rgba(201,149,42,.15);
-  padding:2.5rem;position:relative;
-}
-.ct-card::before{
-  content:'';position:absolute;top:-1px;left:-1px;
-  width:28px;height:28px;
-  border-top:2px solid var(--gold);border-left:2px solid var(--gold);
-}
-.ct-card::after{
-  content:'';position:absolute;bottom:-1px;right:-1px;
-  width:28px;height:28px;
-  border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);
-}
-.ct-submit{
-  width:100%;padding:.92rem;margin-top:.5rem;
-  background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));
-  color:#0A0A08;
-  font-family:'Josefin Sans',sans-serif;
-  font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
-  border:none;cursor:pointer;transition:opacity .2s;
-}
-.ct-submit:hover{opacity:.88}
-.ct-done{display:none;text-align:center;padding:2rem 0}
-.ct-done-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.8rem;font-weight:300;color:var(--gl);margin-bottom:.6rem;
-}
-.ct-done-sub{font-size:.82rem;color:var(--muted);line-height:1.85}
-@media(max-width:768px){.ct-grid{grid-template-columns:1fr}}
 
 </style>
 </head>

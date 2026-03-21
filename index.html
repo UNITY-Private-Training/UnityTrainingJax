@@ -423,13 +423,79 @@
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
 
-  /* ---- RESPONSIVE ---- */
+  /* ---- RESPONSIVE — MOBILE FIRST ---- */
+
+  /* Large tablets */
+  @media (max-width: 1024px) {
+    .process-grid { gap: 3rem; }
+    section { padding: 5rem 2rem; }
+  }
+
+  /* Tablets + large phones */
+  @media (max-width: 900px) {
+    .pillars { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
+
+    /* Nav */
+    nav { padding: 1rem 1.2rem; }
     .nav-links { display: none; }
-    .process-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.2rem; gap: 1.2rem; }
+    .footer-social { justify-content: center; }
+
+    /* Hero */
+    #hero { padding: 7rem 1.2rem 3rem; }
+    #hero img[alt="UNITY JAX Private Training"] {
+      height: 140px !important;
+      max-width: 90vw;
+      width: auto;
+    }
+    .hero-tag { font-size: 0.58rem; letter-spacing: 0.25em; margin-bottom: 1.5rem; }
+    .hero-headline { font-size: 1rem; margin: 1.5rem auto 2rem; padding: 0 0.5rem; }
+    .hero-btns { flex-direction: column; align-items: center; gap: 0.8rem; }
+    .hero-btns a { width: 100%; max-width: 280px; text-align: center; }
+    .btn-primary, .btn-ghost { padding: 0.95rem 2rem; font-size: 0.68rem; }
+    .scroll-hint { display: none; }
+
+    /* Sections */
+    section { padding: 4rem 1.2rem; }
+    .section-title { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+    .section-body { font-size: 0.82rem; }
+
+    /* Pillars */
+    .pillar { padding: 2rem 1.5rem; border-left: none; border-top: 1px solid rgba(201,149,42,0.15); }
+
+    /* Process */
+    .process-grid { grid-template-columns: 1fr; gap: 2rem; }
     .process-visual { display: none; }
-    footer { flex-direction: column; text-align: center; padding: 2rem; }
+    .step { grid-template-columns: 44px 1fr; gap: 1rem; padding: 1.5rem 0; }
+    .step-num { font-size: 2rem; }
+
+    /* Plans */
+    .plans { grid-template-columns: 1fr; gap: 0; background: none; }
+    .plan { padding: 2.5rem 1.5rem; border: 1px solid rgba(201,149,42,0.12); margin-bottom: 1px; }
+    .plan.featured { border-color: rgba(201,149,42,0.35); }
+    .plan-months { font-size: 3rem; }
+    .plan-cta { padding: 1rem; font-size: 0.65rem; min-height: 48px; display: flex; align-items: center; justify-content: center; }
+
+    /* Factfinder CTA section */
+    .ff-inner { padding: 3.5rem 1.5rem; margin: 0 0.5rem; }
+    .ff-big { font-size: clamp(2rem, 8vw, 3rem); }
+    .ff-body { font-size: 0.82rem; margin-bottom: 2rem; }
+    .ff-inner .btn-primary { width: 100%; text-align: center; }
+  }
+
+  /* Small phones */
+  @media (max-width: 380px) {
+    #hero img[alt="UNITY JAX Private Training"] {
+      height: 110px !important;
+    }
+    .hero-tag { display: none; }
+    .plan-months { font-size: 2.5rem; }
+    .ff-inner { padding: 2.5rem 1rem; }
   }
 </style>
 </head>
